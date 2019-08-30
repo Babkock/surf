@@ -9,6 +9,12 @@ static char *cookiefile     = "~/.surf/cookies.txt";
 
 #define HOMEPAGE "https://duckduckgo.com/"
 
+static SearchEngine searchengines[] = {
+	{ "s", "https://duckduckgo.com/?q=%s" },
+	{ "w", "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=%s&language=en&go=Go" },
+	{ "y", "https://www.youtube.com/results?search_query=%s" },
+};
+
 /* Webkit default features */
 /* Highest priority value will be used.
  * Default parameters are priority 0
