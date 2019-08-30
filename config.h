@@ -31,7 +31,7 @@ static Parameter defconfig[ParameterLast] = {
 	[CookiePolicies]      =       { { .v = "@" }, },
 	[DefaultCharset]      =       { { .v = "UTF-8" }, },
 	[DiskCache]           =       { { .i = 1 },     },
-	[DNSPrefetch]         =       { { .i = 0 },     },
+	[DNSPrefetch]         =       { { .i = 1 },     },
 	[FileURLsCrossAccess] =       { { .i = 0 },     },
 	[FontSize]            =       { { .i = 13 },    },
 	[FrameFlattening]     =       { { .i = 0 },     },
@@ -52,7 +52,7 @@ static Parameter defconfig[ParameterLast] = {
 	[SmoothScrolling]     =       { { .i = 1 },     },
 	[SpellChecking]       =       { { .i = 0 },     },
 	[SpellLanguages]      =       { { .v = ((char *[]){ "en_US", NULL }) }, },
-	[StrictTLS]           =       { { .i = 0 },     },
+	[StrictTLS]           =       { { .i = 1 },     },
 	[Style]               =       { { .i = 1 },     },
 	[WebGL]               =       { { .i = 0 },     },
 	[ZoomLevel]           =       { { .f = 1.03 },   },
@@ -63,10 +63,22 @@ static UriParameters uriparams[] = {
 	  [JavaScript] = { { .i = 0 }, 1 },
 	  [Plugins]    = { { .i = 0 }, 1 },
 	}, },
-	{ "(://|\\.)google\\.com(/|$)", {
+	{ "(://|\\.)google\\.com(/|$)", {         // The big bad Google
+	  [JavaScript] = { { .i = 0 }, 1 },       // no JavaScript
+	  [CookiePolicies] = { { .v = "@" }, 1 }, // Don't accept third party
+	  [Geolocation] = { { .i = 0 }, 1 },      // No Geolocation! Google knows anyway
+	
+	}, },
+	{ "(://|\\.)gmail\\.com(/|$)", {
 	  [JavaScript] = { { .i = 0 }, 1 },
-	  [CookiePolicies] = { { .v = "a" }, 1 }
-	}, }
+	  [CookiePolicies] = { { .v = "@" }, 1 },
+	  [Geolocation] = { { .i = 0 }, 1 },
+	}, },
+	{ "(://|\\.)youtube\\.com(/|$)", {
+	  [JavaScript] = { { .i = 1 }, 1 },
+	  [CookiePolicies] = { { .v = "a" }, 1 }, // No cookies at all
+	  [Geolocation] = { { .i = 0 }, 1 },
+	}, },
 };
 
 /* default window size: width, height */
@@ -121,11 +133,8 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
  */
 static SiteSpecific styles[] = {
 	/* regexp               file in $styledir */
-	{ ".*",                 "default.css" }
-//	{ "://boards\\.4chan\\.org/",    "4chan.css" },
-//	{ ".*github.com.*",   "github.css" },
-//	{ ".*reddit.com.*",   "reddit.css" },
-//	{ ".*wikipedia.org.*", "wikipedia.css" },
+	{ ".*",                 "default.css" },
+	{ "(://|\\.)4chan\\.org(/|$)",  "4chan.css"},
 };
 
 /* certificates */
@@ -158,13 +167,13 @@ static Key keys[] = {
 	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
 	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
 
-	/* vertical and horizontal scrolling, in viewport percentage */
+	/* vertical and horizontal scrolling, in viewport percentage
 	{ MODKEY,                GDK_KEY_j,      scrollv,    { .i = +10 } },
 	{ MODKEY,                GDK_KEY_k,      scrollv,    { .i = -10 } },
 	{ MODKEY,                GDK_KEY_space,  scrollv,    { .i = +50 } },
 	{ MODKEY,                GDK_KEY_b,      scrollv,    { .i = -50 } },
 	{ MODKEY,                GDK_KEY_i,      scrollh,    { .i = +10 } },
-	{ MODKEY,                GDK_KEY_u,      scrollh,    { .i = -10 } },
+	{ MODKEY,                GDK_KEY_u,      scrollh,    { .i = -10 } }, */
 
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_j,      zoom,       { .i = -1 } },
@@ -193,6 +202,7 @@ static Key keys[] = {
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_b,      toggle,     { .i = ScrollBars } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_t,      toggle,     { .i = StrictTLS } },
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_m,      toggle,     { .i = Style } },
+	{ MODKEY,                GDK_KEY_w,      playexternal, { 0 } },
 };
 
 /* button definitions */
