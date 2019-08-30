@@ -134,7 +134,7 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 static SiteSpecific styles[] = {
 	/* regexp               file in $styledir */
 	{ ".*",                 "default.css" },
-	{ "(://|\\.)4chan\\.org(/|$)",  "4chan.css"},
+	{ ".*4chan.org.*",  "4chan.css"},
 };
 
 /* certificates */
