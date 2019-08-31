@@ -9,10 +9,15 @@ static char *cookiefile     = "~/.surf/cookies.txt";
 
 #define HOMEPAGE "https://duckduckgo.com/"
 
+static char *searchengine = "https://duckduckgo.com/?q=";
+
 static SearchEngine searchengines[] = {
-	{ "s", "https://duckduckgo.com/?q=%s" },
+	{ "g", "https://google.com/?q=%s" },
 	{ "w", "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=%s&language=en&go=Go" },
 	{ "y", "https://www.youtube.com/results?search_query=%s" },
+	{ "gh", "https://github.com/search?q=%s" },
+	{ "v", "https://wiki.voidlinux.org/index.php?search=%s&title=Special%3ASearch&go=Go" },
+	{ "gf", "https://boards.4chan.org/gif/catalog#s=%s" },
 };
 
 /* Webkit default features */
