@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 /* modifier 0 means no modifier */
 static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = ""; /* Or override the whole user agent string */
@@ -7,7 +10,9 @@ static char *certdir        = "~/.surf/certificates/";
 static char *cachedir       = "~/.surf/cache/";
 static char *cookiefile     = "~/.surf/cookies.txt";
 
+#ifndef HOMEPAGE
 #define HOMEPAGE "https://duckduckgo.com/"
+#endif
 
 static char *searchengine = "https://duckduckgo.com/?q=";
 
@@ -99,10 +104,22 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 #define SETPROP(r, s, p) { \
         .v = (const char *[]){ "/bin/sh", "-c", \
              "prop=\"$(printf '%b' \"$(xprop -id $1 $2 " \
-             "| sed \"s/^$2(STRING) = //;s/^\\\"\\(.*\\)\\\"$/\\1/\")\" " \
-             "| dmenu -nf '#c0b18b' -nb '#141214' -sb '#dd3939' -sf '#000000' -fn 'Anonymous Pro-13' -p \"$4\" -w $1)\" && xprop -id $1 -f $3 8s -set $3 \"$prop\"", \
+			 "| sed \"s/^$2(STRING) = //;s/^\\\"\\(.*\\)\\\"$/\\1/\" && cat ~/.surf/bookmarks)\" " \
+			 "| dmenu -l 10 -nf '#c0b18b' -nb '#141214' -sb '#dd3939' -sf '#000000' -fn 'Anonymous Pro-13' -p \"$4\" -w $1)\" && " \
+			 "xprop -id $1 -f $3 8s -set $3 \"$prop\"", \
              "surf-setprop", winid, r, s, p, NULL \
         } \
+}
+
+/* BM_ADD(readprop) */
+#define BM_ADD(r) {\
+        .v = (const char *[]){ "/bin/sh", "-c", \
+	         "(echo $(xprop -id $0 $1) | cut -d '\"' -f2 " \
+			 "| sed 's/.*https*:\\/\\/\\(www\\.\\)\\?//' && cat ~/.surf/bookmarks) " \
+			 "| awk '!seen[$0]++' > ~/.surf/bookmarks.tmp && " \
+			 "mv ~/.surf/bookmarks.tmp ~/.surf/bookmarks", \
+			 winid, r, NULL \
+		} \
 }
 
 /* DOWNLOAD(URI, referer) */
@@ -139,7 +156,6 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 static SiteSpecific styles[] = {
 	/* regexp               file in $styledir */
 	{ ".*",                 "default.css" },
-	{ ".*4chan.org.*",  "4chan.css"},
 };
 
 /* certificates */
@@ -171,6 +187,8 @@ static Key keys[] = {
 
 	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
 	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
+
+	{ MODKEY,                GDK_KEY_b,      spawn,      BM_ADD("_SURF_URI") },
 
 	/* vertical and horizontal scrolling, in viewport percentage
 	{ MODKEY,                GDK_KEY_j,      scrollv,    { .i = +10 } },
@@ -221,3 +239,6 @@ static Button buttons[] = {
 	{ OnAny,        0,              9,      clicknavigate,  { .i = +1 },    1 },
 	{ OnMedia,      MODKEY,         1,      clickexternplayer, { 0 },       1 },
 };
+
+#endif
+
