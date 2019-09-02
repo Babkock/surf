@@ -53,7 +53,7 @@ static Parameter defconfig[ParameterLast] = {
 	[KioskMode]           =       { { .i = 0 },     },
 	[LoadImages]          =       { { .i = 1 },     },
 	[MediaManualPlay]     =       { { .i = 1 },     },
-	[Plugins]             =       { { .i = 1 },     },
+	[Plugins]             =       { { .i = 0 },     },
 	[PreferredLanguages]  =       { { .v = (char *[]){ NULL } }, },
 	[RunInFullscreen]     =       { { .i = 0 },     },
 	[ScrollBars]          =       { { .i = 1 },     },
@@ -65,7 +65,7 @@ static Parameter defconfig[ParameterLast] = {
 	[StrictTLS]           =       { { .i = 1 },     },
 	[Style]               =       { { .i = 1 },     },
 	[WebGL]               =       { { .i = 0 },     },
-	[ZoomLevel]           =       { { .f = 1.03 },   },
+	[ZoomLevel]           =       { { .f = 1.00 },   },
 };
 
 static UriParameters uriparams[] = {
@@ -80,7 +80,7 @@ static UriParameters uriparams[] = {
 	
 	}, },
 	{ "(://|\\.)gmail\\.com(/|$)", {
-	  [JavaScript] = { { .i = 0 }, 1 },
+	  [JavaScript] = { { .i = 1 }, 1 },
 	  [CookiePolicies] = { { .v = "@" }, 1 },
 	  [Geolocation] = { { .i = 0 }, 1 },
 	}, },
@@ -89,6 +89,31 @@ static UriParameters uriparams[] = {
 	  [CookiePolicies] = { { .v = "a" }, 1 }, // No cookies at all
 	  [Geolocation] = { { .i = 0 }, 1 },
 	}, },
+	{ "(://|\\.)tannerbabcock\\.com(/|$)", {
+	  [JavaScript] = { { .i = 1 }, 1 },
+      [ZoomLevel] = { { .f = 1.00 }, 1 },
+	  [FontSize] = { { .i = 14 }, 1 },
+	  [Plugins] = { { .i = 0 }, 1 },
+	}, },
+	{ "(://|\\.)messenger\\.com(/|$)", {
+	  [CookiePolicies] = { { .v = "@" }, 1 },
+	  [Geolocation] = { { .i = 0 }, 1 },
+	  [JavaScript] = { { .i = 1 }, 1 },
+      [Plugins] = { { .i = 0 }, 1 },
+	}, },
+	{ "(://|\\.)instagram\\.com(/|$)", {
+      [CookiePolicies] = { { .v = "@" }, 1 },
+	  [Geolocation] = { { .i = 0 }, 1 },
+	  [JavaScript] = { { .i = 1 }, 1 },
+	  [Plugins] = { { .i = 0 }, 1 },
+	}, },
+	{ "(://|\\.)tumblr\\.com(/|$)", {
+      [CookiePolicies] = { { .v = "@" }, 1 },
+	  [Geolocation] = { { .i = 0 }, 1 },
+	  [JavaScript] = { { .i = 1 }, 1 },
+	  [Plugins] = { { .i = 0 }, 1 },
+	  [StrictTLS] = { { .i = 0 }, 1 }
+	}, }
 };
 
 /* default window size: width, height */
@@ -104,9 +129,9 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 #define SETPROP(r, s, p) { \
         .v = (const char *[]){ "/bin/sh", "-c", \
              "prop=\"$(printf '%b' \"$(xprop -id $1 $2 " \
-			 "| sed \"s/^$2(STRING) = //;s/^\\\"\\(.*\\)\\\"$/\\1/\" && cat ~/.surf/bookmarks)\" " \
-			 "| dmenu -l 10 -nf '#c0b18b' -nb '#141214' -sb '#dd3939' -sf '#000000' -fn 'Anonymous Pro-13' -p \"$4\" -w $1)\" && " \
-			 "xprop -id $1 -f $3 8s -set $3 \"$prop\"", \
+             "| sed \"s/^$2(STRING) = //;s/^\\\"\\(.*\\)\\\"$/\\1/\" && cat ~/.surf/bookmarks)\" " \
+             "| dmenu -l 8 -nf '#c0b18b' -nb '#141214' -sb '#dd3939' -sf '#000000' -fn 'Anonymous Pro-13' -p \"$4\" -w $1)\" && " \
+             "xprop -id $1 -f $3 8u -set $3 \"$prop\"", \
              "surf-setprop", winid, r, s, p, NULL \
         } \
 }
@@ -114,12 +139,12 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 /* BM_ADD(readprop) */
 #define BM_ADD(r) {\
         .v = (const char *[]){ "/bin/sh", "-c", \
-	         "(echo $(xprop -id $0 $1) | cut -d '\"' -f2 " \
-			 "| sed 's/.*https*:\\/\\/\\(www\\.\\)\\?//' && cat ~/.surf/bookmarks) " \
-			 "| awk '!seen[$0]++' > ~/.surf/bookmarks.tmp && " \
-			 "mv ~/.surf/bookmarks.tmp ~/.surf/bookmarks", \
-			 winid, r, NULL \
-		} \
+             "(echo $(xprop -id $0 $1) | cut -d '\"' -f2 " \
+             "| sed 's/.*https*:\\/\\/\\(www\\.\\)\\?//' && cat ~/.surf/bookmarks) " \
+             "| awk '!seen[$0]++' > ~/.surf/bookmarks.tmp && " \
+             "mv ~/.surf/bookmarks.tmp ~/.surf/bookmarks", \
+             winid, r, NULL \
+        } \
 }
 
 /* DOWNLOAD(URI, referer) */
@@ -183,7 +208,8 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
 	{ MODKEY,                GDK_KEY_c,      stop,       { 0 } },
 
-	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 1 } },
+	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
+	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
 
 	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
 	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
