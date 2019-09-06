@@ -2,7 +2,7 @@
 
 ![Screenshot](https://raw.githubusercontent.com/Babkock/surf/master/screenshot.png)
 
-Suckless web browser. This [Dmenu](https://github.com/Babkock/dmenu) will always be styled to match my system's Dmenu, with the same attributes from [Dotfiles](https://github.com/Babkock/Dotfiles). There are a number of patches applied:
+Suckless web browser. This [dmenu](https://github.com/Babkock/dmenu) will always be styled to match my system's dmenu, with the same attributes from [Dotfiles](https://github.com/Babkock/Dotfiles). The following patches were applied by hand.
 
 ## Patches
 
@@ -26,5 +26,5 @@ Suckless web browser. This [Dmenu](https://github.com/Babkock/dmenu) will always
 
 * `Ctrl + Shift + K` - Zoom in
 * `Ctrl + Shift + J` - Zoom out
-* `Ctrl + W` - play media on page in [MPV](https://github.com/mpv-player/mpv)
+* `Ctrl + W` - play media on page in [mpv](https://github.com/mpv-player/mpv)
 
