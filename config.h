@@ -17,7 +17,7 @@ static char *cookiefile     = "~/.surf/cookies.txt";
 static char *searchengine = "https://duckduckgo.com/?q=";
 
 static SearchEngine searchengines[] = {
-	{ "g", "https://google.com/?q=%s" },
+	{ "g", "https://google.com/search?q=%s" },
 	{ "w", "https://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=%s&language=en&go=Go" },
 	{ "y", "https://www.youtube.com/results?search_query=%s" },
 	{ "gh", "https://github.com/search?q=%s" },
@@ -46,7 +46,7 @@ static Parameter defconfig[ParameterLast] = {
 	[FontSize]            =       { { .i = 13 },    },
 	[FrameFlattening]     =       { { .i = 0 },     },
 	[Geolocation]         =       { { .i = 0 },     },
-	[HideBackground]      =       { { .i = 0 },     },
+	[HideBackground]      =       { { .i = 1 },     },
 	[Inspector]           =       { { .i = 0 },     },
 	[Java]                =       { { .i = 0 },     },
 	[JavaScript]          =       { { .i = 1 },     },
@@ -77,7 +77,6 @@ static UriParameters uriparams[] = {
 	  [JavaScript] = { { .i = 0 }, 1 },       // no JavaScript
 	  [CookiePolicies] = { { .v = "@" }, 1 }, // Don't accept third party
 	  [Geolocation] = { { .i = 0 }, 1 },      // No Geolocation! Google knows anyway
-	
 	}, },
 	{ "(://|\\.)gmail\\.com(/|$)", {
 	  [JavaScript] = { { .i = 1 }, 1 },
@@ -86,7 +85,7 @@ static UriParameters uriparams[] = {
 	}, },
 	{ "(://|\\.)youtube\\.com(/|$)", {
 	  [JavaScript] = { { .i = 1 }, 1 },
-	  [CookiePolicies] = { { .v = "a" }, 1 }, // No cookies at all
+	  [CookiePolicies] = { { .v = "@" }, 1 }, // No cookies at all
 	  [Geolocation] = { { .i = 0 }, 1 },
 	}, },
 	{ "(://|\\.)tannerbabcock\\.com(/|$)", {
@@ -112,8 +111,14 @@ static UriParameters uriparams[] = {
 	  [Geolocation] = { { .i = 0 }, 1 },
 	  [JavaScript] = { { .i = 1 }, 1 },
 	  [Plugins] = { { .i = 0 }, 1 },
-	  [StrictTLS] = { { .i = 0 }, 1 }
-	}, }
+	  [StrictTLS] = { { .i = 0 }, 1 },
+	  [ZoomLevel] = { { .f = 1.00 }, 1 },
+	}, },
+	{ "(://|\\.)wikipedia\\.org(/|$)", {
+	  [JavaScript] = { { .i = 1 }, 1 },
+	  [ZoomLevel] = { { .f = 1.40 }, 1 },
+	  [FontSize] = { { .i = 15 }, 1 },
+	}, },
 };
 
 /* default window size: width, height */
