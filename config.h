@@ -85,7 +85,7 @@ static UriParameters uriparams[] = {
 	}, },
 	{ "(://|\\.)youtube\\.com(/|$)", {
 	  [JavaScript] = { { .i = 1 }, 1 },
-	  [CookiePolicies] = { { .v = "@" }, 1 }, // No cookies at all
+	  [CookiePolicies] = { { .v = "@" }, 1 },
 	  [Geolocation] = { { .i = 0 }, 1 },
 	}, },
 	{ "(://|\\.)tannerbabcock\\.com(/|$)", {
@@ -111,13 +111,13 @@ static UriParameters uriparams[] = {
 	  [Geolocation] = { { .i = 0 }, 1 },
 	  [JavaScript] = { { .i = 1 }, 1 },
 	  [Plugins] = { { .i = 0 }, 1 },
-	  [StrictTLS] = { { .i = 0 }, 1 },
+	  [StrictTLS] = { { .i = 1 }, 1 },
 	  [ZoomLevel] = { { .f = 1.00 }, 1 },
 	}, },
 	{ "(://|\\.)wikipedia\\.org(/|$)", {
 	  [JavaScript] = { { .i = 1 }, 1 },
-	  [ZoomLevel] = { { .f = 1.40 }, 1 },
-	  [FontSize] = { { .i = 15 }, 1 },
+	  [ZoomLevel] = { { .f = 1.20 }, 1 },
+	  [FontSize] = { { .i = 13 }, 1 },
 	}, },
 };
 
@@ -174,7 +174,7 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
 /* VIDEOPLAY(URI) */
 #define VIDEOPLAY(u) {\
         .v = (const char *[]){ "/bin/sh", "-c", \
-             "mpv --really-quiet \"$0\"", u, NULL \
+             "mpv --volume 50 --x11-name \"mpv via surf\" \"$0\"", u, NULL \
         } \
 }
 
