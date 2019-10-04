@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <gio/gio.h>
 #include <webkit2/webkit-web-extension.h>
