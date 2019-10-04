@@ -106,6 +106,14 @@ static UriParameters uriparams[] = {
 	  [JavaScript] = { { .i = 1 }, 1 },
 	  [Plugins] = { { .i = 0 }, 1 },
 	}, },
+	{ "(://|\\.)dmacc\\.edu(/|$)", {
+	  [CookiePolicies] = { { .v = "A" }, 1 },
+	  [JavaScript] = { { .i = 1 }, 1 },
+	}, },
+	{ "(://|\\.)dmacc\\.blackboard\\.com(/|$)", {
+	  [CookiePolicies] = { { .v = "A" }, 1 },
+	  [JavaScript] = { { .i = 1 }, 1 },
+	}, },
 	{ "(://|\\.)tumblr\\.com(/|$)", {
       [CookiePolicies] = { { .v = "@" }, 1 },
 	  [Geolocation] = { { .i = 0 }, 1 },
