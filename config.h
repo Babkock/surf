@@ -22,7 +22,7 @@ static SearchEngine searchengines[] = {
 	{ "y", "https://www.youtube.com/results?search_query=%s" },
 	{ "gh", "https://github.com/search?q=%s" },
 	{ "v", "https://wiki.voidlinux.org/index.php?search=%s&title=Special%3ASearch&go=Go" },
-	{ "gf", "https://boards.4chan.org/gif/catalog#s=%s" },
+	{ "mc", "https://minecraft.gamepedia.com/index.php?search=%s&title=Special%3ASearch&go=Go" },
 };
 
 /* Webkit default features */
@@ -125,7 +125,7 @@ static UriParameters uriparams[] = {
 	{ "(://|\\.)wikipedia\\.org(/|$)", {
 	  [JavaScript] = { { .i = 1 }, 1 },
 	  [ZoomLevel] = { { .f = 1.20 }, 1 },
-	  [FontSize] = { { .i = 13 }, 1 },
+	  [FontSize] = { { .i = 14 }, 1 },
 	}, },
 };
 
