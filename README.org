@@ -5,6 +5,7 @@
 
 [[https://gitlab.com/tbsuckless/surf/-/commits/master][https://gitlab.com/tbsuckless/st/badges/master/pipeline.svg]]
 [[https://github.com/Babkock/surf/actions/workflows/c-cpp.yml/badge.svg]]
+[[https://img.shields.io/badge/License-MIT-yellow.svg]]
 
 [[https://raw.githubusercontent.com/Babkock/surf/master/screenshot.png]]
 
