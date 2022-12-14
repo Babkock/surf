@@ -1,0 +1,32 @@
+#+TITLE: Surf
+#+AUTHOR: Tanner Babcock
+#+EMAIL: babkock@protonmail.com
+#+LANGUAGE: en
+
+[[https://raw.githubusercontent.com/Babkock/surf/master/screenshot.png]]
+
+Suckless web browser. This [[https://github.com/Babkock/dmenu][dmenu]] will always be styled to match my system's dmenu, with the same attributes from [[https://github.com/Babkock/Dotfiles][my Dotfiles]]. The following patches were applied by hand.
+
+* Patches
+
+- Bookmarks
+- [[https://surf.suckless.org/patches/spacesearch/][Space search]]
+- [[https://surf.suckless.org/patches/searchengines/][Search engines]]
+- [[https://surf.suckless.org/patches/homepage/][Homepage]]
+- [[https://surf.suckless.org/patches/playexternal][Play external]]
+- Unicode support in Dmenu
+
+* Key bindings
+
+| Key combo     | Action              |
+|---------------+---------------------|
+| =Ctrl + L=      | Forward             |
+| =Ctrl + R=      | Refresh             |
+| =Ctrl + G=      | Open address bar    |
+| =Ctrl + F=      | Find string on page |
+| =Ctrl + N=      | Go to next result   |
+| =Ctrl + Shift + O= | Open Web Inspector |
+| =Ctrl + B=      | Bookmark current page |
+| =Ctrl + Shift + K= | Zoom in          |
+| =Ctrl + Shift + J= | Zoom out         |
+| =Ctrl + W=      | Play media on page in [[https://github.com/mpv-player/mpv][mpv]] |
