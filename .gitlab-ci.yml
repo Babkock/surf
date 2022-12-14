@@ -5,7 +5,7 @@ build:
   # instead of calling g++ directly you can also use some build toolkit like make
   # install the necessary build tools when needed
   before_script:
-    - apt update && apt -y install make autoconf libx11-dev libx11-xcb-dev libxcb-xkb-dev libxft-dev libwebkit2gtk-4.0-dev
+    - apt update && apt -y install make autoconf libx11-dev libx11-xcb-dev libxcb-xkb-dev libxft-dev libgcr-3-dev libwebkit2gtk-4.0-dev
   script:
     - make clean
     - make

@@ -3,6 +3,9 @@
 #+EMAIL: babkock@protonmail.com
 #+LANGUAGE: en
 
+[[https://gitlab.com/tbsuckless/surf/-/commits/master][https://gitlab.com/tbsuckless/st/badges/master/pipeline.svg]]
+[[https://github.com/Babkock/surf/actions/workflows/c-cpp.yml/badge.svg]]
+
 [[https://raw.githubusercontent.com/Babkock/surf/master/screenshot.png]]
 
 Suckless web browser. This [[https://github.com/Babkock/dmenu][dmenu]] will always be styled to match my system's dmenu, with the same attributes from [[https://github.com/Babkock/Dotfiles][my Dotfiles]]. The following patches were applied by hand.
