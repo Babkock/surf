@@ -12,6 +12,7 @@ build:
   artifacts:
     paths:
       - surf
+      - libsurf-webext.so
 
 cache:
   paths:
